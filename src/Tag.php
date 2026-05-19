@@ -17,7 +17,7 @@ class Tag extends Model implements Sortable
 
     public $guarded = [];
 
-    public function scopeWithType(Builder $query, string $type = null): Builder
+    public function scopeWithType(Builder $query, ?string $type = null): Builder
     {
         if (is_null($type)) {
             return $query;
@@ -51,7 +51,7 @@ class Tag extends Model implements Sortable
      *
      * @return \Spatie\Tags\Tag|static
      */
-    public static function findOrCreate($values, string $type = null, string $locale = null)
+    public static function findOrCreate($values, ?string $type = null, ?string $locale = null)
     {
         $tags = collect($values)->map(function ($value) use ($type, $locale) {
             if ($value instanceof Tag) {
@@ -69,7 +69,7 @@ class Tag extends Model implements Sortable
         return static::withType($type)->orderBy('order_column')->get();
     }
 
-    public static function findFromString(string $column, string $name, string $type = null, string $locale = null)
+    public static function findFromString(string $column, string $name, ?string $type = null, ?string $locale = null)
     {
         $locale = $locale ?? app()->getLocale();
 
@@ -79,7 +79,7 @@ class Tag extends Model implements Sortable
             ->first();
     }
 
-    protected static function findOrCreateFromString(string $name, string $type = null, string $locale = null): self
+    protected static function findOrCreateFromString(string $name, ?string $type = null, ?string $locale = null): self
     {
         $locale = $locale ?? app()->getLocale();
 

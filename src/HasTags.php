@@ -59,7 +59,7 @@ trait HasTags
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeWithAllTags(Builder $query, $tags, $column = 'name', string $type = null): Builder
+    public function scopeWithAllTags(Builder $query, $tags, $column = 'name', ?string $type = null): Builder
     {
         $tags = static::convertToTags($column, $tags, $type);
 
@@ -80,7 +80,7 @@ trait HasTags
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeWithAnyTags(Builder $query, $tags, $column = 'name', string $type = null): Builder
+    public function scopeWithAnyTags(Builder $query, $tags, $column = 'name', ?string $type = null): Builder
     {
         $tags = static::convertToTags($column, $tags, $type);
         
@@ -91,7 +91,7 @@ trait HasTags
         });
     }
 
-    public function tagsWithType(string $type = null): Collection
+    public function tagsWithType(?string $type = null): Collection
     {
         return $this->tags->filter(function (Tag $tag) use ($type) {
             return $tag->type === $type;
@@ -174,7 +174,7 @@ trait HasTags
      *
      * @return $this
      */
-    public function syncTagsWithType($tags, string $type = null)
+    public function syncTagsWithType($tags, ?string $type = null)
     {
         $className = static::getTagClassName();
 
@@ -209,7 +209,7 @@ trait HasTags
      * @param string|null $type
      * @param bool $detaching
      */
-    protected function syncTagIds($ids, string $type = null, $detaching = true)
+    protected function syncTagIds($ids, ?string $type = null, $detaching = true)
     {
         $isUpdated = false;
 
